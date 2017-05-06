@@ -30,11 +30,11 @@ function decodeBase64 (str) {
     }
   }
   let buf = new Uint8Array(str.length * 3 / 4 - pad);
-  for (let i = 0; i < str.length; i += 4) {
+  for (let i = 0; i < str.length - pad; i += 4) {
     buf[i * 3 / 4] = base64inv[str.charAt(i)] << 2 & 255 | base64inv[str.charAt(i + 1)] >>> 4;
-    if (i + 2 < str.length) {
+    if (i + 2 < str.length - pad) {
       buf[i * 3 / 4 + 1] = base64inv[str.charAt(i + 1)] << 4 & 255 | base64inv[str.charAt(i + 2)] >>> 2;
-      if (i + 3 < str.length) {
+      if (i + 3 < str.length - pad) {
         buf[i * 3 / 4 + 2] = base64inv[str.charAt(i + 2)] << 6 & 255 | base64inv[str.charAt(i + 3)];
       }
     }
